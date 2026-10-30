@@ -10,6 +10,7 @@ A comprehensive, multi-vendor enterprise IT infrastructure lab designed to simul
 * **Directory Services & Core Infra:** Windows Server (Active Directory Domain Services, DNS, DHCP)
 * **Endpoints:** Windows Clients (`CLIENT01`, `CLIENT02`)
 * **Linux Infrastructure:** Ubuntu Server (Cross-platform AD integration, Web/File services)
+<img width="1536" height="1024" alt="Enterprise IT Homelab Roadmap" src="https://github.com/user-attachments/assets/f1d18a49-d621-441b-9daa-a223120da599" />
 
 ---
 
