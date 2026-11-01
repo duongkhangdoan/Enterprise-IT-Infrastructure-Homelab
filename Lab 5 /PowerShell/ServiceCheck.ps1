@@ -1,17 +1,14 @@
-#!/bin/bash
-# Lab 5 - Ubuntu service monitoring and logging
+# Lab 5 - Domain Controller Service Monitoring
+# Run on DC01 using Windows PowerShell.
+$Services = @('DNS', 'NTDS', 'Netlogon')
 
-services=("ssh" "apache2" "smbd")
-logfile="$HOME/ServiceCheck.log"
-
-for service in "${services[@]}"; do
-    timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-
-    if systemctl is-active --quiet "$service"; then
-        echo -e "\e[32m$service : RUNNING\e[0m"
-        echo "$timestamp $service : RUNNING" >> "$logfile"
-    else
-        echo -e "\e[31m$service : NOT RUNNING\e[0m"
-        echo "$timestamp $service : NOT RUNNING" >> "$logfile"
-    fi
-done
+foreach ($Service in $Services) {
+    try {
+        $Status = (Get-Service -Name $Service -ErrorAction Stop).Status
+        $Color = if ($Status -eq 'Running') { 'Green' } else { 'Red' }
+        Write-Host "${Service}: $Status" -ForegroundColor $Color
+    }
+    catch {
+        Write-Warning "Unable to check ${Service}: $($_.Exception.Message)"
+    }
+}
